@@ -1,0 +1,16 @@
+# Missing DWARF repro case
+
+Starting with the nightly-2021-09-23 revision, rustc quit producing DWARF info
+for static variables defined in lib crates in release builds with LTO enabled.
+Static variables in bin crates are still fine.
+
+This demonstrates the issue.
+
+To build:
+
+```
+$ cargo build --release
+```
+
+To confirm: apply dwarfdump to output. You should find a variable called
+`THE_STATIC`. But you won't.
